@@ -22,6 +22,11 @@ end
 
 -- // Getters //
 
+-- Gets the lighting service
+function LightingHandler.getLightingService(self: LightingHandler): Lighting
+    return self.lighting
+end
+
 -- Gets the shadows status
 function LightingHandler.getGlobalShadows(self: LightingHandler): boolean
     return self.lighting.GlobalShadows

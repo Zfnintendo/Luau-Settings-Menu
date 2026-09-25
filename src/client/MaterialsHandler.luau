@@ -1,8 +1,8 @@
 local MaterialsHandler = {}
 MaterialsHandler.__index = MaterialsHandler
 
-export type DefaultMaterials = { [Instance]: Enum.Material}
-export type DefaultTextures = { [Instance]: string}
+export type DefaultMaterials = { [BasePart]: Enum.Material}
+export type DefaultTextures = { [Texture]: string}
 type MatchedDescendants = { Instance }
 
 export type MaterialsHandler = setmetatable<{
@@ -54,8 +54,9 @@ local function setTextureToInstance(WorkSpace: Workspace): DefaultTextures
     end
 
     return defaultTextures
-    
+
 end
+
 
 
 -- // Constructor //
@@ -64,16 +65,71 @@ function MaterialsHandler.new(wSpace: Workspace, materialService: MaterialServic
     local self = setmetatable({
         materialService = materialService,
         WorkSpace = wSpace,
-        
+        defaultMaterials = setMaterialToInstance(wSpace),
+        defaultTextures = setTextureToInstance(wSpace),
     }, MaterialsHandler)
 
     return self
-
 end
+
+
 
 -- // Getters //
 
+-- Gets the MaterialService
+function MaterialsHandler.getMaterialService(self: MaterialsHandler): MaterialService
+    return self.materialService
+end
+
+-- Gets the workspace
+function MaterialsHandler.getWorkspace(self: MaterialsHandler): Workspace
+    return self.WorkSpace
+end
+
+-- Gets the key-value pairs of BaseParts
+function MaterialsHandler.getDefaultMaterials(self: MaterialsHandler): DefaultMaterials
+    return self.defaultMaterials
+end
+
+-- Gets the key-value pairs of Textures
+function MaterialsHandler.getDefaultTextures(self: MaterialsHandler): DefaultTextures
+    return self.defaultTextures
+end
+
+-- Gets the specific default Enum Material from a specific Instance
+function MaterialsHandler.getSpecificMaterialFromInstance(self: MaterialsHandler, basePartInst: BasePart): Enum.Material
+    return self.defaultMaterials[basePartInst]
+end
+
+-- Gets the specific default texture id from a specific Instance
+function MaterialsHandler.getSpecificTextureFromInstance(self: MaterialsHandler, textureInst: Texture): string
+    return self.defaultTextures[textureInst]
+end
+
+
+
 -- // Setters //
+
+-- Sets the key valuye pairs of default materials?
+function MaterialsHandler.setDefaultMaterials(self: MaterialsHandler, defaultMaterials: DefaultMaterials)
+    self.defaultMaterials = defaultMaterials
+end
+
+-- Sets the key value pairs of default textures
+function MaterialsHandler.setDefaultTextures(self: MaterialsHandler, defaultTextures: DefaultTextures)
+    self.defaultTextures = defaultTextures
+end
+
+-- Sets the specific default enum material for a specific instance
+function MaterialsHandler.setSpecificMaterial(self:MaterialsHandler, basePartInst: BasePart, material: Enum.Material)
+    self.defaultMaterials[basePartInst] = material
+end
+
+-- Sets the specific default texture for a specific instance
+function MaterialsHandler.setSpecificTexture(self: MaterialsHandler, textureInst: Texture, textureId: string)
+    self.defaultTextures[textureInst] = textureId
+end
+
 
 
 return MaterialsHandler
