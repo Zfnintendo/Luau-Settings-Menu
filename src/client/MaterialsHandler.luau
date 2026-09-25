@@ -130,6 +130,48 @@ function MaterialsHandler.setSpecificTexture(self: MaterialsHandler, textureInst
     self.defaultTextures[textureInst] = textureId
 end
 
+-- // Other Methods //
+
+function MaterialsHandler.setAllToSpecificMaterial(self: MaterialsHandler, material: Enum.Material)
+    local partTable: { BasePart } = {}
+
+    for k, v in pairs(self.defaultMaterials) do 
+        table.insert(partTable, k)
+    end
+
+    for i, part: BasePart in partTable do
+        part.Material = material
+    end
+end
+
+function MaterialsHandler.setMaterialsToDefault(self: MaterialsHandler)
+
+    for k: BasePart, v: Enum.Material in pairs(self.defaultMaterials) do     
+        k.Material = v
+    end
+
+end
+
+function MaterialsHandler.setTexturesToTexture(self: MaterialsHandler, textureId: string)
+    local textureTable: { Texture } = {}
+
+    for k, v in pairs(self.defaultTextures) do
+        table.insert(textureTable, k)
+    end
+
+    for i, texture:Texture in textureTable do
+        texture.ColorMapContent = textureId
+    end
+end
+
+function MaterialsHandler.setTexturesToDefault(self: MaterialsHandler)
+
+    for k: Texture, v: string in pairs(self.defaultTextures) do 
+        k.ColorMapContent = v
+    end
+
+end
+
 
 
 return MaterialsHandler
