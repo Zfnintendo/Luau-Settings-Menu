@@ -132,6 +132,7 @@ end
 
 -- // Other Methods //
 
+-- Sets all parts in the instance to a specified material
 function MaterialsHandler.setAllToSpecificMaterial(self: MaterialsHandler, material: Enum.Material)
     local partTable: { BasePart } = {}
 
@@ -144,6 +145,7 @@ function MaterialsHandler.setAllToSpecificMaterial(self: MaterialsHandler, mater
     end
 end
 
+-- Sets all instance materials to their default material
 function MaterialsHandler.setMaterialsToDefault(self: MaterialsHandler)
 
     for k: BasePart, v: Enum.Material in pairs(self.defaultMaterials) do     
@@ -152,6 +154,7 @@ function MaterialsHandler.setMaterialsToDefault(self: MaterialsHandler)
 
 end
 
+-- sets all the textures to one texture
 function MaterialsHandler.setTexturesToTexture(self: MaterialsHandler, textureId: string)
     local textureTable: { Texture } = {}
 
@@ -164,6 +167,7 @@ function MaterialsHandler.setTexturesToTexture(self: MaterialsHandler, textureId
     end
 end
 
+-- sets all textures to their original texture
 function MaterialsHandler.setTexturesToDefault(self: MaterialsHandler)
 
     for k: Texture, v: string in pairs(self.defaultTextures) do 
